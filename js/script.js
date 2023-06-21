@@ -50,6 +50,7 @@ const mensagens = {
 function verificaCampo(campo) {
  /* This code block is checking for errors in the input fields of a form. */
     let mensagem = "";
+    campo.setCustomValidity('');
     if(campo.name == "cpf" && campo.value.length >= 11){
         validoCPF(campo);
     };
