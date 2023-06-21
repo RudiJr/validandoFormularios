@@ -48,10 +48,28 @@ const mensagens = {
 }
 
 function verificaCampo(campo) {
+ /* This code block is checking for errors in the input fields of a form. */
+    let mensagem = "";
     if(campo.name == "cpf" && campo.value.length >= 11){
         validoCPF(campo);
     };
     if(campo.name == "aniversario" && campo.value != ""){
         maiorDeIdade(campo);
+    };
+    tiposDeErro.forEach(erro => {
+        if(campo.validity[erro]){
+            mensagem = mensagens[campo.name][erro];
+            console.log(mensagem);
+        }
+    });
+
+  /* This code block is responsible for displaying error messages in the form fields. */
+    const mensagemErro = campo.parentNode.querySelector('.mensagem-erro');
+    const validadorInput = campo.checkValidity();
+
+    if(!validadorInput) {
+        mensagemErro.textContent = mensagem;
+    }else {
+        mensagemErro.textContent = "";
     };
 };
