@@ -4,6 +4,7 @@ const video = document.querySelector("[data-video]");
 const tirarFoto = document.querySelector("[data-tirar-foto]");
 const canvas = document.querySelector("[data-video-canvas]");
 const mensagem = document.querySelector("[data-mensagem]");
+const enviarFoto = document.querySelector("[data-enviar]");
 
 let imagemURL  = "";
 
@@ -36,4 +37,25 @@ tirarFoto.addEventListener("click", function() {
     
     campoCamera.computedStyleMap.display = 'none';
     mensagem.computedStyleMap.display = 'block';
+});
+
+/* This code is adding an event listener to the `enviarFoto` element, which is triggered when the
+element is clicked. When the event is triggered, the code retrieves the data stored in the
+`cadastro` key of the browser's `localStorage` using the `localStorage.getItem()` method. The
+retrieved data is then parsed from a string to an object using the `JSON.parse()` method and
+assigned to the `converteRetorno` variable. The `imagemURL` variable is then assigned to the
+`imagem` property of the `converteRetorno` object. The updated `converteRetorno` object is then
+stored back in the `localStorage` using the `localStorage.setItem()` method. Finally, the page is
+redirected to "/pages/abrir-conta-form-3.html" using the `window.location.href` property. This code
+is essentially updating the `imagem` property of an object stored in the browser's `localStorage`
+and redirecting the user to another page. */
+enviarFoto.addEventListener("click", () => {
+    const receberDadosExistentes = localStorage.getItem("cadastro");
+    const converteRetorno = JSON.parse(receberDadosExistentes);
+
+    converteRetorno.imagem = imagemURL;
+
+    localStorage.setItem('cadastro', JSON.stringify(converteRetorno));
+
+    window.location.href = "/pages/abrir-conta-form-3.html";
 });
